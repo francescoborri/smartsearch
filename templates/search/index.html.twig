@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Smart search
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-lg-5 mt-3">
+		<div class="row row-cols-1 g-lg-5 g-3">
+			<div class="col">
+				<div class="card shadow">
+					<div class="card-body">
+						<div class="row g-3 align-items-center">
+							<div class="col">
+								<div class="input-group">
+									<input type="text" id="search-field" name="search-field" class="form-control" list="search-datalist" placeholder="Type a city name" autocomplete="off">
+									<button id="search-submit" type="button" class="btn btn-primary">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+								<datalist id="search-datalist"></datalist>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div id="city-success" class="card d-none bg-success shadow">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item list-group-item-success">
+							<h3 id="city-name" class="mb-0"></h3>
+						</li>
+						<li class="list-group-item list-group-item-success">
+							Country:
+							<span id="city-country"></span>
+						</li>
+						<li class="list-group-item list-group-item-success">
+							Subcountry:
+							<span id="city-subcountry"></span>
+						</li>
+						<li class="list-group-item list-group-item-success">
+							GeonameID:
+							<code>
+								<span id="city-geonameid" class="font-monospace"></span>
+							</code>
+						</li>
+					</ul>
+				</div>
+				<div id="city-error" class="card d-none bg-danger shadow">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item list-group-item-danger">
+							<h3 class="mb-0">Can't find any city!</h3>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/search.js') }}"></script>
+{% endblock %}
