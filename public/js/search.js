@@ -13,51 +13,53 @@ function get(prefix, urlParameter, queryParameters, callback) {
     xhttp.send();
 }
 
-function loadDatalist(json) {
+function load(json) {
     try {
         cities = JSON.parse(json).cities;
-        $('#search-datalist').empty();
-        cities.forEach(city => {
-            $('<option>').val(city.name).attr('data-geonameid', city.geonameid).appendTo('#search-datalist');
-        });
-        $('#search-field').focus();
+        $('#search-dropdown').empty();
+
+        if (cities && cities.length > 0)
+            cities.slice(0, 10).forEach(city => {
+                $('#search-dropdown').append(
+                    $('<li>').addClass('dropdown-item').attr('data-geonameid', city.geonameid).click(function() {
+                        get(API_CITY_ENDPOINT, $(this).data('geonameid'), null, show);
+                    }).append(
+                        $('<span>').text(city.name)
+                    ).append($('<br>')).append(
+                        $('<small>').addClass('text-muted').text(city.country)
+                    ));
+            });
+        else
+            $('#search-dropdown').append(
+                $('<li>').addClass('dropdown-item').text('No city found'));
+
     } catch (error) {
         console.error(error);
     }
 }
 
-function showCity(json) {
+function show(json) {
     try {
         city = JSON.parse(json).city;
-        $('#city-name').html(city.name);
-        $('#city-country').html(city.country);
-        $('#city-subcountry').html(city.subcountry);
-        $('#city-geonameid').html(city.geonameid);
-        $('#city-success').removeClass('d-none');
-        $('#city-error').addClass('d-none');
+        $('#modal-city-name').text(city.name);
+        $('#modal-city-country').text(city.country);
+        $('#modal-city-subcountry').text(city.subcountry);
+        $('#modal-city-geonameid').text(city.geonameid);
+        $('#modal-city').modal('show');
     } catch (error) {
         console.error(error);
-    }
-}
-
-function submit() {
-    let input = $('#search-field').val();
-    let selectedCity = $(`option[value="${input}"]`);
-    if (selectedCity.length) {
-        get(API_CITY_ENDPOINT, selectedCity.data('geonameid'), null, showCity);
-    } else {
-        $('#city-error').removeClass('d-none');
-        $('#city-success').addClass('d-none');
     }
 }
 
 $('#search-field').on('input', () => {
-    if ($('#search-field').val() != '')
-        get(API_CITIES_ENDPOINT, null, { 'value': $('#search-field').val() }, loadDatalist);
+    if ($('#search-field').val() != '') {
+        get(API_CITIES_ENDPOINT, null, { 'filter': $('#search-field').val() }, load);
+        $('#search-dropdown').show();
+    } else
+        $('#search-dropdown').hide();
 });
 
-$('#search-submit').click(submit);
-
-$(document).keypress((event) => {
-    if (event.which == 13) submit();
+$('#search-field').on('keypress', event => {
+    if (event.which == 13)
+        $('#search-dropdown > li:first')[0].click();
 });

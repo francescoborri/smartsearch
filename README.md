@@ -18,7 +18,7 @@ Run the built-in symfony web server.
 ```sh
 symfony serve
 ```
-In the `/search` path there's the actual search engine, which uses a very minimal web service located in the `/api` path. In the `/api/cities` path you can search a city by its initials, specifying them in the `value` query parameter (e.g. `/api/cities?value=Lond`). If you want more information about a specific city, you can find them in the `/api/city/{geonameid}` path specifying the geonameid of the city.
+In the `/search` path there's the actual search engine, which uses a very minimal web service located in the `/api` path. In the `/api/cities` path you can search a city by its initials, specifying them in the `filter` query parameter (e.g. `/api/cities?filter=Lond`). If you want more information about a specific city, you can find them in the `/api/city/{geonameid}` path specifying the geonameid of the city.
 
 
 

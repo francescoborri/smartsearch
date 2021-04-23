@@ -5,53 +5,33 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-lg-5 mt-3">
-		<div class="row row-cols-1 g-lg-5 g-3">
-			<div class="col">
-				<div class="card shadow">
-					<div class="card-body">
-						<div class="row g-3 align-items-center">
-							<div class="col">
-								<div class="input-group">
-									<input type="text" id="search-field" name="search-field" class="form-control" list="search-datalist" placeholder="Type a city name" autocomplete="off">
-									<button id="search-submit" type="button" class="btn btn-primary">
-										<i class="bi bi-search"></i>
-									</button>
-								</div>
-								<datalist id="search-datalist"></datalist>
-							</div>
+	<div class="row row-cols-1 g-lg-5 g-3">
+		<div class="col">
+			<div class="card shadow justify-content-center">
+				<div class="card-body">
+					<div class="input-group">
+						<div class="input-group-text">
+							<i class="bi bi-search"></i>
 						</div>
+						<input type="text" id="search-field" name="search-field" class="form-control" placeholder="Type a city name" autocomplete="off">
 					</div>
 				</div>
+				<ul class="dropdown-menu w-100 my-lg-3 my-2 shadow" id="search-dropdown"></ul>
 			</div>
-			<div class="col">
-				<div id="city-success" class="card d-none bg-success shadow">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item list-group-item-success">
-							<h3 id="city-name" class="mb-0"></h3>
-						</li>
-						<li class="list-group-item list-group-item-success">
-							Country:
-							<span id="city-country"></span>
-						</li>
-						<li class="list-group-item list-group-item-success">
-							Subcountry:
-							<span id="city-subcountry"></span>
-						</li>
-						<li class="list-group-item list-group-item-success">
-							GeonameID:
-							<code>
-								<span id="city-geonameid" class="font-monospace"></span>
-							</code>
-						</li>
-					</ul>
+		</div>
+	</div>
+	<div id="modal-city" class="modal" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header align-items-center justify-content-start">
+					<h3 id="modal-city-name" class="mb-0"></h3>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
-				<div id="city-error" class="card d-none bg-danger shadow">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item list-group-item-danger">
-							<h3 class="mb-0">Can't find any city!</h3>
-						</li>
-					</ul>
+				<div class="modal-body align-middle">
+					<span id="modal-city-country"></span>,
+					<span id="modal-city-subcountry"></span>
+					<br>
+					<code id="modal-city-geonameid" class="font-monospace"></code>
 				</div>
 			</div>
 		</div>
