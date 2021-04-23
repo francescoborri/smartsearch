@@ -19,7 +19,7 @@ class CityController extends AbstractController
      */
     public function list(Request $request, CityRepository $cityRepository): Response
     {
-        $filter = $request->query->has('value') ? $request->query->get('value') : '';
+        $filter = $request->query->has('filter') ? $request->query->get('filter') : '';
 
         return $this->json([
             'cities' => $cityRepository->findFilteringByCityName($filter)

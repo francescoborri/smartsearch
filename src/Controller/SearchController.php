@@ -9,9 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class SearchController extends AbstractController
 {
     /**
-     * @Route("/search", name="search")
+     * @Route("/", name="index")
      */
     public function index(): Response
+    {
+        return $this->redirectToRoute('search');
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(): Response
     {
         return $this->render('search/index.html.twig');
     }
