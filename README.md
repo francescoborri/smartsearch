@@ -2,7 +2,7 @@
 This project is a simple google-search-like search engine based on a cities database. Built with [Symfony](https://symfony.com/), AJAX and [Bootstrap](https://getbootstrap.com/).
 
 ## Installation
-Clone this repository, install the required dependencies and configure the database. 
+Clone this repository, install the required dependencies and configure the database.
 ```sh
 git clone https://github.com/francescoborri/smartsearch
 cd smartsearch
@@ -11,6 +11,11 @@ composer update
 echo "DATABASE_URL=\"{your_database_URL_here}\"" > .env.local
 bin/console doctrine:database:create #or symfony console doctrine:database:create
 bin/console doctrine:schema:create #or symfony console doctrine:schema:create
+```
+
+If you want, there is a CSV file in the asset directory containing some cities (taken [here](https://datahub.io/core/world-cities)) that you can automatically load through fixtures.
+```sh
+bin/console doctrine:fixtures:load #or symfony console doctrine:fixtures:load
 ```
 
 ## Usage
